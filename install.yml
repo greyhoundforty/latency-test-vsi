@@ -1,0 +1,16 @@
+#cloud-config
+apt_update: true
+apt_upgrade: true
+users:
+  - name: deployer
+    groups: [ sudo ]
+    sudo: [ "ALL=(ALL) NOPASSWD:ALL" ]
+    shell: /bin/bash
+    ssh-authorized-keys:
+    - 'ssh-rsa <key>'
+packages:
+    - python
+    - python-apt
+    - python3-apt
+final_message: "The system is finally up, after $UPTIME seconds"
+output: {all: '| tee -a /var/log/cloud-init-output.log'}
